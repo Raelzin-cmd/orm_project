@@ -1,0 +1,11 @@
+services:
+  postgres:
+    container_name: ${c_name}
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_PASSWORD: ${pg_pass}
+      POSTGRES_USER: ${pg_user}
+    volumes:
+      - .data/postgres:/var/lib/postgresql/data
+    ports:
+      - ${ports}:${ports}

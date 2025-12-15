@@ -10,5 +10,5 @@ pnpm-debug.log*
 .eslintcache
 .DS_Store
 Thumbs.db
-README.md
 .data/
+/src/generated/prisma

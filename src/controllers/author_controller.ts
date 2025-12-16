@@ -6,6 +6,18 @@ export default class AuthorController {
         const { name, email, bio, cpf, country } = req.body
 
         try {
+            const emailExists = await prisma.author.findUnique({
+                where: {
+                    email
+                }
+            })
+
+            if (emailExists) {
+                return res.status(400).json({
+                    message: 'Email already exists'
+                })
+            }
+
             const author = await prisma.author.create({
                 data: {
                     name,

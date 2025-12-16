@@ -12,3 +12,5 @@ pnpm-debug.log*
 Thumbs.db
 .data/
 /src/generated/prisma
+*.db
+*.splite

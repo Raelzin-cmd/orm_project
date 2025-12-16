@@ -8,9 +8,10 @@ datasource db {
 }
 
 model Author {
-  id Int @id @default(autoincrement())
-  name String
-  email String @unique
-  bio String?
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  bio       String?
+  cpf       String
   createdAt DateTime @default(now())
 }

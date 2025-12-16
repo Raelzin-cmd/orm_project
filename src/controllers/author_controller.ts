@@ -1,12 +1,22 @@
 import { Request, Response } from "express";
+import prisma from "../prisma";
 
 export default class AuthorController {
     async create(req: Request, res: Response) {
         const { name, email, bio, cpf, country } = req.body
 
         try {
-            console.log({ name, email, bio, cpf, country })
-            return res.send()
+            const author = await prisma.author.create({
+                data: {
+                    name,
+                    email,
+                    bio,
+                    cpf,
+                    pais: country
+                }
+            })
+
+            return res.status(201).json(author)
         } catch (error) {
             const erro = error as Error
             return res.status(400).json({

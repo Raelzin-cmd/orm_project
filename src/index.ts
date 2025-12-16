@@ -8,6 +8,8 @@ app.use(express.json())
 
 app.use(routes)
 
-app.listen(process.env.PORT, () => {
-    console.log('Server Started!');
+const PORT = process.env.PORT ? Number(process.env.PORT) : 3333
+
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`)
 })

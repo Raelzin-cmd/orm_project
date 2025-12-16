@@ -13,7 +13,7 @@ model Author {
   email     String   @unique
   bio       String?
   cpf       String
-  pais      String?  @db.Char(2)
+  pais      String?  @map("country") @db.Char(2)
   createdAt DateTime @default(now())
 
   @@map("authors")

@@ -5,7 +5,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model Author {
@@ -14,8 +13,8 @@ model Author {
   email     String   @unique
   bio       String?
   cpf       String
-  createdAt DateTime @default(now())
   pais      String?  @map("country") @db.Char(2)
+  createdAt DateTime @default(now())
 
   @@map("authors")
 }

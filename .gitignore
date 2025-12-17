@@ -1,54 +1,16 @@
-## Node
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-pnpm-debug.log*
-
-## Build
 dist/
-build/
-coverage/
-
-## Env
 .env
 .env.*
-
-## Logs
 *.log
-.log
-
-## OS
-.DS_Store
-Thumbs.db
-
-## Editor/IDE
-.vscode/
-.idea/
-.history/
-
-## TypeScript
-*.tsbuildinfo
-
-## Jest / Coverage
-coverage/
-/.nyc_output
-
-## Prisma
-/prisma/migrations/
-/prisma/dev.db
-/.prisma/
-node_modules/.prisma/
-
-## Generated
-/src/generated/
-/prisma/generated/
-
-## Database
-*.db
-*.sqlite
-/.data/
-
-## Misc
+npm-debug;.log*
+yarn-debug.log*
+pnpm-debug.log*
 .cache/
 .eslintcache
-.turbo/
+.DS_Store
+Thumbs.db
+.data/
+/src/generated/prisma
+*.db
+*.splite

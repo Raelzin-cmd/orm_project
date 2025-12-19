@@ -34,12 +34,32 @@ model Profile {
 
 // Posts -> um para muitos
 model Post {
-  id        String   @id @default(uuid())
-  title     String
-  content   String
-  createdAt DateTime @default(now()) @db.Timestamp()
-  author    Author   @relation(fields: [authorId], references: [id])
-  authorId  Int      @map("author_id")
+  id             String         @id @default(uuid())
+  title          String
+  content        String
+  createdAt      DateTime       @default(now()) @db.Timestamp()
+  author         Author         @relation(fields: [authorId], references: [id])
+  authorId       Int            @map("author_id")
+  postCategories PostCategory[]
 
   @@map("posts")
+}
+
+// Category -> muitos para muitos
+model Category {
+  id           String         @id @default(uuid())
+  name         String
+  postCategory PostCategory[]
+
+  @@map("categories")
+}
+
+model PostCategory {
+  post       Post     @relation(fields: [postId], references: [id])
+  postId     String   @map("post_id")
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String   @map("category_id")
+
+  @@id([postId, categoryId])
+  @@map("post_categories")
 }

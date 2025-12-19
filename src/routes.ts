@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import AuthorController from './controllers/author_controller'
+import CategoryController from './controllers/categor_controller'
 
 const routes = Router()
 
@@ -14,5 +15,8 @@ routes.get('/authors', new AuthorController().list)
 routes.get('/authors/:id', new AuthorController().show)
 routes.put('/authors/:id', new AuthorController().update)
 routes.delete('/authors/:id', new AuthorController().delete)
+
+
+routes.post('/categories', new CategoryController().create)
 
 export default routes

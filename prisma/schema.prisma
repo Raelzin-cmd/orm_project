@@ -16,6 +16,16 @@ model Author {
   cpf       String
   createdAt DateTime @default(now())
   pais      String?  @map("country") @db.Char(2)
+  profile   Profile?
 
   @@map("authors")
+}
+
+model Profile {
+  id          String @id @default(uuid())
+  description String
+  author      Author @relation(fields: [authorId], references: [id])
+  authorId    Int    @unique @map("author_id")
+
+  @@map("profiles")
 }

@@ -17,10 +17,12 @@ model Author {
   createdAt DateTime @default(now())
   pais      String?  @map("country") @db.Char(2)
   profile   Profile?
+  posts     Post[]
 
   @@map("authors")
 }
 
+// Profile -> um para um
 model Profile {
   id          String @id @default(uuid())
   description String
@@ -28,4 +30,16 @@ model Profile {
   authorId    Int    @unique @map("author_id")
 
   @@map("profiles")
+}
+
+// Posts -> um para muitos
+model Post {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  createdAt DateTime @default(now()) @db.Timestamp()
+  author    Author   @relation(fields: [authorId], references: [id])
+  authorId  Int      @map("author_id")
+
+  @@map("posts")
 }

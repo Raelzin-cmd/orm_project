@@ -32,6 +32,39 @@ export default class AuthorController {
         }
     }
 
+    async createProfile(req: Request, res: Response) {
+        const { description } = req.body
+        const { id } = req.params
+
+        try {
+            // Verifica se já existe autor com o mesmo email
+            const author = await prisma.author.findUnique({
+                where: {
+                    id: Number(id)
+                }
+            })
+
+            if (!author) {
+                return res.status(404).json({
+                    message: 'Author not found'
+                })
+            }
+
+            // Cria o autor. Observe o mapeamento: `pais: country`
+            const profile = await prisma.profile.create({
+                data: {
+                    description,
+                    authorId: author.id
+                }
+            })
+
+            return res.status(201).json(profile)
+        } catch (error) {
+            const erro = error as Error
+            return res.status(400).json({ message: erro.message })
+        }
+    }
+
     // Lista todos os autores
     async list(req: Request, res: Response) {
         try {

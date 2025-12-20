@@ -16,6 +16,7 @@ routes.get('/authors/:id', new AuthorController().show)
 routes.put('/authors/:id', new AuthorController().update)
 routes.delete('/authors/:id', new AuthorController().delete)
 
+routes.post('/authors/:id/profile', new AuthorController().createProfile)
 
 routes.post('/categories', new CategoryController().create)
 

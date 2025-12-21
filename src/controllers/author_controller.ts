@@ -10,19 +10,36 @@ import prisma from '../prisma'
 export default class AuthorController {
     // Cria um novo autor. Valida unicidade do email antes de criar.
     async create(req: Request, res: Response) {
-        const { name, email, bio, cpf, country } = req.body
+        const { name, email, bio, cpf, country, profileDescription } = req.body
 
         try {
             // Verifica se já existe autor com o mesmo email
-            const emailExists = await prisma.author.findUnique({ where: { email } })
+            const emailExists = await prisma.author.findUnique({
+                where: {
+                    email
+                }
+            })
 
             if (emailExists) {
-                return res.status(400).json({ message: 'Email already exists' })
+                return res.status(400).json({
+                    message: 'Email already exists'
+                })
+            }
+
+            const profile = !profileDescription ? undefined : {
+                description: profileDescription
             }
 
             // Cria o autor. Observe o mapeamento: `pais: country`
             const author = await prisma.author.create({
-                data: { name, email, bio, cpf, pais: country }
+                data: {
+                    name,
+                    email,
+                    bio,
+                    cpf,
+                    pais: country,
+                    ...(profile ? { profile: { create: profile } } : {})
+                }
             })
 
             return res.status(201).json(author)

@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import AuthorController from './controllers/author_controller'
 import CategoryController from './controllers/categor_controller'
+import PostController from './controllers/post_controller'
 
 const routes = Router()
 
@@ -17,7 +18,7 @@ routes.put('/authors/:id', new AuthorController().update)
 routes.delete('/authors/:id', new AuthorController().delete)
 
 routes.post('/authors/:id/profile', new AuthorController().createProfile)
-
 routes.post('/categories', new CategoryController().create)
+routes.post('/posts', new PostController().create)
 
 export default routes

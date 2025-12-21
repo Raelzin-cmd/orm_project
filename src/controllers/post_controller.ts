@@ -65,7 +65,12 @@ export default class PostController {
         try {
             const posts = await prisma.post.findMany({
                 include: {
-                    author: true
+                    author: true,
+                    postCategories: {
+                        include: {
+                            category: true
+                        }
+                    }
                 }
             })
 

@@ -85,7 +85,13 @@ export default class AuthorController {
     // Lista todos os autores
     async list(req: Request, res: Response) {
         try {
-            const authors = await prisma.author.findMany()
+            const authors = await prisma.author.findMany({
+                include: {
+                    profile: true,
+                    posts: true
+                }
+            })
+
             return res.status(200).json(authors)
         } catch (error) {
             const erro = error as Error

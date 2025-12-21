@@ -60,5 +60,20 @@ export default class PostController {
             })
         }
     }
+
+    async list(req: Request, res: Response) {
+        try {
+            const posts = await prisma.post.findMany({
+                include: {
+                    author: true
+                }
+            })
+
+            return res.status(200).json(posts)
+        } catch (error) {
+            const erro = error as Error
+            return res.status(400).json({ message: erro.message })
+        }
+    }
 }
 

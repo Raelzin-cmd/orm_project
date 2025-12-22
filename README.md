@@ -102,6 +102,19 @@ A API irá iniciar na porta definida na variável `PORT` do arquivo `.env` (ex.:
 * **POST** `/authors` — Cria um autor
   Implementação: `src/controllers/author_controller.ts`
 
+Outros endpoints disponíveis:
+
+- **POST** `/authors/:id/profile` — Cria um `Profile` para um autor existente (body: `{ description: string }`).
+- **GET** `/authors` — Lista autores.
+- **GET** `/authors/:id` — Retorna autor por `id`.
+- **PUT** `/authors/:id` — Atualiza autor por `id` (body: `{ name?, email?, bio?, cpf?, country? }`).
+- **DELETE** `/authors/:id` — Remove autor por `id`.
+- **POST** `/categories` — Cria categorias em massa. Body esperado: `{ names: string[] }`.
+- **POST** `/posts` — Cria um post vinculado a um autor e associa categorias. Body exemplo: `{ title, content, authorId, categories: string[] }`.
+- **GET** `/posts` — Lista posts com autor e categorias relacionadas.
+
+As implementações estão em `src/controllers/author_controller.ts`, `src/controllers/category_controller.ts` e `src/controllers/post_controller.ts`.
+
 ---
 
 ## 📁 Estrutura do projeto
@@ -114,7 +127,9 @@ ORM_PROJECT
 │   └── migration_lock.toml
 ├── src
 │   ├── controllers
-│   │   └── author_controller.ts
+│   │   ├── author_controller.ts
+│   │   ├── category_controller.ts
+│   │   └── post_controller.ts
 │   ├── index.ts
 │   ├── prisma.ts
 │   └── routes.ts
@@ -141,12 +156,19 @@ ORM_PROJECT
 
 ---
 
+
 ## 🧾 Comentários no código
 
-Alguns arquivos essenciais (`src/index.ts`, `src/routes.ts`, `src/prisma.ts`, `src/controllers/author_controller.ts`)
-contêm comentários explicativos para ajudar novos desenvolvedores a entenderem decisões importantes
-como o uso de uma única instância do `PrismaClient`, o mapeamento de campos (`country` ↔ `pais`) e
-como as rotas são registradas. Leia os comentários inline para orientação rápida.
+Os arquivos principais foram documentados com comentários e JSDoc para ajudar novos desenvolvedores a entenderem responsabilidades e decisões arquiteturais. Arquivos comentados incluem:
+
+- `src/index.ts` — ponto de entrada e configuração básica do Express.
+- `src/routes.ts` — definição centralizada das rotas HTTP.
+- `src/prisma.ts` — exporta uma instância singleton do `PrismaClient`.
+- `src/controllers/author_controller.ts` — operações CRUD de `Author` e criação de `Profile`.
+- `src/controllers/category_controller.ts` — criação em massa de categorias.
+- `src/controllers/post_controller.ts` — criação e listagem de posts com associação de categorias.
+
+Os comentários explicam mapeamentos (por exemplo, `pais` ↔ `country`), decisões sobre instâncias de clientes e como estender os controllers.
 
 ---
 
@@ -155,6 +177,8 @@ como as rotas são registradas. Leia os comentários inline para orientação r�
 * [`src/index.ts`](src/index.ts) — Ponto de entrada da aplicação
 * [`src/routes.ts`](src/routes.ts) — Definição das rotas
 * [`src/controllers/author_controller.ts`](src/controllers/author_controller.ts) — Controller de autores
+* [`src/controllers/category_controller.ts`](src/controllers/category_controller.ts) — Controller de categorias
+* [`src/controllers/post_controller.ts`](src/controllers/post_controller.ts) — Controller de posts
 * [`prisma/schema.prisma`](prisma/schema.prisma) — Schema do Prisma
 
 ---

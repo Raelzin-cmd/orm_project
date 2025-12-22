@@ -1,8 +1,10 @@
 import { PrismaClient } from '@prisma/client'
 
-// Exporta uma única instância do PrismaClient para toda a aplicação.
-// Ter uma instância compartilhada evita criação excessiva de conexões
-// com o banco e funciona bem em apps Express simples.
+/**
+ * Prisma client singleton
+ * - Exporta uma instância compartilhada de `PrismaClient` para evitar abrir
+ *   múltiplas conexões no pool quando o app registra handlers/rotas.
+ */
 const prisma = new PrismaClient()
 
 export default prisma

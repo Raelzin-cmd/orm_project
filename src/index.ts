@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(routes)
 
 // Inicia o servidor usando a porta definida em `process.env.PORT`.
-// Nota: manter a lógica simples aqui; tests / infra podem sobrescrever `PORT`.
+// Nota: manter a lógica simples aqui; testes/infra podem sobrescrever `PORT`.
 app.listen(process.env.PORT, () => {
         console.log('Server Started!')
 })

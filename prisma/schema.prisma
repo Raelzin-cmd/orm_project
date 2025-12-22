@@ -1,3 +1,10 @@
+// Prisma schema: modelos do domínio e configuração do client/datasource
+// - Autor: representa usuários-autores com perfil opcional e posts relacionados
+// - Profile: relacionamento 1:1 com Author
+// - Post: posts escritos por Authors e relacionados a categorias via PostCategory
+// - Category: categorias reutilizáveis
+// - PostCategory: tabela de junção para relação N:N entre Post e Category
+
 generator client {
   provider   = "prisma-client-js"
   engineType = "binary"

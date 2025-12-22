@@ -7,8 +7,17 @@ import prisma from '../prisma'
 // - O nome do campo no banco é `pais`, mas na API usamos `country` para
 //   ficar mais claro/idiomático; o mapeamento é feito nas operações abaixo.
 // - Erros são capturados e retornam status 400 com a mensagem do erro.
+/**
+ * AuthorController
+ * - Encapsula operações CRUD sobre `Author` e gerenciamento de `Profile`.
+ * - Métodos retornam respostas HTTP adequadas (201, 200, 204, 400, 404).
+ */
 export default class AuthorController {
     // Cria um novo autor. Valida unicidade do email antes de criar.
+    /**
+     * Cria um novo autor. Se `profileDescription` for informado, cria também o `Profile` relacionado.
+     * Body esperado: `{ name, email, bio?, cpf, country?, profileDescription? }`.
+     */
     async create(req: Request, res: Response) {
         const { name, email, bio, cpf, country, profileDescription } = req.body
 
@@ -49,6 +58,11 @@ export default class AuthorController {
         }
     }
 
+    /**
+     * Cria um `Profile` para um autor já existente.
+     * - Parâmetros: `req.params.id` (author id), `req.body.description`.
+     * - Retorna 201 com o profile criado ou 404 caso o autor não exista.
+     */
     async createProfile(req: Request, res: Response) {
         const { description } = req.body
         const { id } = req.params
@@ -83,6 +97,7 @@ export default class AuthorController {
     }
 
     // Lista todos os autores
+    /** Lista todos os autores. Retorna 200 com array de autores. */
     async list(req: Request, res: Response) {
         try {
             const authors = await prisma.author.findMany({
@@ -100,6 +115,7 @@ export default class AuthorController {
     }
 
     // Retorna um autor por `id`
+    /** Retorna um autor por `id` (params). */
     async show(req: Request, res: Response) {
         const { id } = req.params
         try {
@@ -117,6 +133,7 @@ export default class AuthorController {
     }
 
     // Atualiza um autor existente; valida conflitos de email
+    /** Atualiza campos de um autor existente; valida conflitro de email. */
     async update(req: Request, res: Response) {
         const { id } = req.params
         const { name, email, bio, cpf, country } = req.body
@@ -149,6 +166,7 @@ export default class AuthorController {
     }
 
     // Remove um autor por `id`
+    /** Remove um autor por `id`. */
     async delete(req: Request, res: Response) {
         const { id } = req.params
 
